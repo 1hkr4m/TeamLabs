@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cpu_mon() {
+cpu_="$(top -bn1 | grep Cpu)"
+}
+
+ram_mon() {
+
+}
+
+storage() {
+
+}
+
+main() {
+
+}
+
