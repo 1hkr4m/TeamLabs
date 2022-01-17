@@ -13,4 +13,8 @@
 
 ### nginx, tomcat, mysql
 
--  
+-  Script for nginx setup
+-  Script for mysql setup
+-  Script for setup mysql + php + nginx + phpmyadmin (without apache)
+-  script for setup tomcat
+-  scripts for backup 
