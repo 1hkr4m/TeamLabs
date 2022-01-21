@@ -17,4 +17,7 @@
 -  Script for mysql setup
 -  Script for setup mysql + php + nginx + phpmyadmin (without apache)
 -  script for setup tomcat
--  scripts for backup 
+-  scripts for backup
+
+# Azure topic
+-  Wordpress Setup (App service + mysql flexible server)
