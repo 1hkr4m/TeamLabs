@@ -13,7 +13,7 @@
 
 ### nginx, tomcat, mysql
 
--  [Script for nginx setup] (https://github.com/1hkr4m/team-labs/tree/main/App%20topic/1-nginx-setup)
+-  [Script for nginx setup](https://github.com/1hkr4m/team-labs/tree/main/App%20topic/1-nginx-setup)
 -  Script for mysql setup
 -  Script for setup mysql + php + nginx + phpmyadmin (without apache)
 -  script for setup tomcat
