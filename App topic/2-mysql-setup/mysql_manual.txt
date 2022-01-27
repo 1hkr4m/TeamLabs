@@ -1,0 +1,55 @@
+#!/bin/bash
+
+sudo apt-get install -y mysql-server
+
+# set security policies for mysql
+sudo mysql_secure_installation
+
+# Create a new datebase
+mysql> CREATE DATABASE db_name;
+
+# List of avaliable datebases
+mysql> SELECT DATABASES;
+
+# Select database for use
+mysql> USE db_name;
+
+# Show curren selected database
+mysql> SELECT DATABASE();
+
+# Select datebase when logging in to MySQL:
+mysql> mysql -u user -p db_name;
+
+# Delete datebase
+mysql> DROP DATABASE db_name;
+
+# Create a new table;
+mysql> CREATE TABLE tbl_name (col_name col_def);
+
+# List Tables
+mysql> SHOW TABLE [FROM db_name];
+
+# List columns in a table
+mysql> DESCRIBE tbl_name [db_name.tbl_name];
+mysql> SHOW COLUMNS FROM tbl_name [FROM db_name];
+
+#list tablse and columns using the mysqlshow
+mysqlshow -u name -p db_name
+mysqlshow -u name -p db_name tbl_name
+
+#list addittional info about a table
+mysql> SHOW TABLE STATUS [FROM db_name];
+
+# Show statment that created a table
+mysql> SHOW CREATE TABLE tbl_name;
+
+# Copy table
+mysql> CREATE TABLE new_tbl LIKE orig_tbl;
+
+# Clone table
+mysql> CREATE TABLE new_tbl [AS] SELECT * FROM orig_tbl;
+
+# Delete table
+mysql> DROP TABLE tbl_name;
+mysql> DROP TABLE db_name.tbl_name;
+
