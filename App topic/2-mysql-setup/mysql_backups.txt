@@ -25,3 +25,5 @@ mysql> SELECT * FROM db_name.tbl_name INTO OUTFILE '/var/lib/mysql-files/dump.tx
 mysql -u root -p db_name < tbl_name.sql
 mysqlimport -u root -p db_name tbl_name.txt
 
+# Show where databases store
+mysql> SHOW VARIABLES LIKE 'secure_file_priv';
