@@ -30,14 +30,11 @@ mysql_test() {
 # copy my my.cnf files
 mysql_cnf_replace() {
     my_cnf="my.cnf"
-    mysql_cnf="mysql.cnf"
-    mysqld_cnf="mysqld.cnf"
 
     if [[ -f "$(pwd)/${my_cnf}" ]] || [[ -f "$(pwd)/${mysql_cnf}"]] || [[ -f "$(pwd)/${mysqld_cnf}" ]]
     then
         cp ${my_cnf} /etc/mysql
-        cp ${mysql_cnf} /etc/mysql/mysql.conf.d
-        cp ${mysqld_cnf} /etc/mysql/mysql.conf.d
+
     else
         echo "ERROR to copy confgiguration file. Check it they exist and all cnf files must be in the same dir with script file."
     fi
