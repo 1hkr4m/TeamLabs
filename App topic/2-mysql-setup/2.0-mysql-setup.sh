@@ -26,15 +26,15 @@ mysql_test() {
         echo "mysql is down" >> $LOG_FILE
         systemctl enable mysql.service
         systemctl start mysql.service
+    fi
 }
 # copy my my.cnf files
 mysql_cnf_replace() {
     my_cnf="my.cnf"
 
-    if [[ -f "$(pwd)/${my_cnf}" ]] || [[ -f "$(pwd)/${mysql_cnf}"]] || [[ -f "$(pwd)/${mysqld_cnf}" ]]
+    if [[ -f "$(pwd)/${my_cnf}" ]]
     then
         cp ${my_cnf} /etc/mysql
-
     else
         echo "ERROR to copy confgiguration file. Check it they exist and all cnf files must be in the same dir with script file."
     fi
