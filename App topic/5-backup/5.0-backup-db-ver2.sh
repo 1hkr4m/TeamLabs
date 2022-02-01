@@ -8,7 +8,7 @@ then
     echo "Plese run as sudo user!"
     exit 1
 else
-    echo "$(date) - You run mysql backup script."
+    echo "$(date) - You run mysql backup script." >> $LOG_FILE
 fi
 
 selectdb_backup() {
@@ -26,7 +26,7 @@ selectdb_backup() {
     
     if [[ "${?}" -eq 0 ]]
     then
-        echo "$(date) - Backups operations finish succesfully!"
+        echo "$(date) - Backups operations finish succesfully!" 
     else
         echo "$(date) - ERROR! Cant backup you database(s)!"
         exit 1
