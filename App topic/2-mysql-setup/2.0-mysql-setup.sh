@@ -6,6 +6,8 @@ if [[ "${UID}" -ne 0 ]]
 then
     echo "Plese enter like sudo user!"
     exit 1
+else
+    date >> $LOG_FILE
 fi
 
 # Install MySql
@@ -30,11 +32,12 @@ mysql_test() {
 }
 # copy my my.cnf files
 mysql_cnf_replace() {
-    my_cnf="my.cnf"
+    my_cnf="mysql.cnf"
 
     if [[ -f "$(pwd)/${my_cnf}" ]]
     then
-        cp ${my_cnf} /etc/mysql
+        echo "mysql.cnf copied successfully!!!"
+        cp $(pwd)/${my_cnf} /etc/mysql
     else
         echo "ERROR to copy confgiguration file. Check it they exist and all cnf files must be in the same dir with script file."
     fi
