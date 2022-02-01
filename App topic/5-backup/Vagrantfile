@@ -1,0 +1,15 @@
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  config.vm.provider "virtualbox"
+
+  config.vm.define "db_backup" do |db_backup|
+    db_backup.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      apt-get install -y mysql-server
+    SHELL
+    db_backup.vm.provision "file", source: "5.0-backup-db-ver2.sh",
+      destination: "/home/vagrant/db_backup.sh"  
+  end
+
+end
