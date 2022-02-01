@@ -1,0 +1,11 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  config.vm.provider "virtualbox"
+  
+  config.vm.define "db" do |db|
+    db.vm.provision "file", source: "2.0-mysql-setup.sh",
+      destination: "/home/vagrant/mysql.sh"
+    db.vm.provision "file", source: "mysql.cnf",
+      destination: "/home/vagrant/mysql.cnf"  
+    end
+end
