@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
       apt-get update
       apt-get install -y mysql-server
     SHELL
-    db_backup.vm.provision "file", source: "5.0-backup-db-ver2.sh",
+    db_backup.vm.provision "file", source: "5.0-backup.sh",
       destination: "/home/vagrant/db_backup.sh"  
   end
 
