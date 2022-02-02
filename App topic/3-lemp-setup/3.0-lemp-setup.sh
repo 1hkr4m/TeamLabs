@@ -27,13 +27,14 @@ install_nginx{
 }
 
 # copy my config to nginx folder
-set_config() {
+nginx_config() {
     nginx_config="nginx.conf"
     my_com_config="ihor.com.conf"
+
     if [[ -f "$(pwd)/${nginx_config}" ]] || [[ -f "$(pwd)/${my_com_config}" ]]; then
         cp ${nginx_config} /etc/nginx &> $LOG_FILE
         cp ${my_com_config} /etc/nginx/sites-avalible &> $LOG_FILE
-
+        
         echo "You config successfully copy to nginx folder."
         nginx -t
     else
@@ -85,7 +86,7 @@ mysql_secure_ins() {
 
 # php install
 php_install() {
-    apt-get -y install php-fpm php-mysql
+    apt-get -y install php-fpm php-mysql phpmyadmin
 }
 
 wordpress_install() {
