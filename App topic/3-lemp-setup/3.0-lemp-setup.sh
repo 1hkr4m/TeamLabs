@@ -31,10 +31,13 @@ nginx_config() {
     nginx_config="nginx.conf"
     my_com_config="ihor.com.conf"
 
-    if [[ -f "$(pwd)/nginx_conf/${nginx_config}" ]] || [[ -f "$(pwd)/nginx_conf/${my_com_config}" ]]; then
-        cp $(pwd)/nginx_conf/${nginx_config} /etc/nginx &> $LOG_FILE
-        cp $(pwd)/nginx_conf/${my_com_config} /etc/nginx/sites-avalible &> $LOG_FILE
-        cp $(pwd)/ihor.com/ /etc/www/html
+    if [[ -f "./nginx_conf/${nginx_config}" ]] || [[ -f "./nginx_conf/${my_com_config}" ]]; then
+        cp ./nginx_conf/${nginx_config} /etc/nginx
+        cp ./nginx_conf/${my_com_config} /etc/nginx/sites-available
+        cp -r ./ihor.com/ /var/www/html
+
+        # SSL keys copy
+        cp ./nginx_conf/*.key /etc/ssl/private/
         
         echo "You config successfully copy to nginx folder."
         nginx -t
@@ -71,10 +74,10 @@ mysql_install() {
 mysql_cnf_replace() {
     my_cnf="mysql.cnf"
 
-    if [[ -f "$(pwd)/mysql_conf/${my_cnf}" ]]
+    if [[ -f "./mysql_conf/${my_cnf}" ]]
     then
         echo "mysql.cnf copied successfully!!!"
-        cp $(pwd)/mysql_conf/${my_cnf} /etc/mysql
+        cp ./mysql_conf/${my_cnf} /etc/mysql
     else
         echo "ERROR to copy confgiguration file. Check it they exist and all cnf files must be in the same dir with script file."
     fi
@@ -87,19 +90,21 @@ mysql_secure_ins() {
 
 # php install
 php_install() {
-    apt-get -y install php-fpm php-mysql
+    apt-get -y install php-fpm php-mysql >> $LOG_FILE
 }
 
 wordpress_install() {
     wget https://wordpress.org/latest.tar.gz
+    tar -xf latest.tar.gz
+    mv ./wordpress /var/www/html
 }
 
-install_nginx
+#install_nginx
 nginx_config
-firewall_config
-mysql_install
+#firewall_config
+#mysql_install
 mysql_cnf_replace
-mysql_secure_ins
-php_install
-wordpress_install
+#mysql_secure_ins
+#php_install
+#wordpress_install
 
