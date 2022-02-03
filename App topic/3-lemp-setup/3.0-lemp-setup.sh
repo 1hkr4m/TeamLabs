@@ -35,6 +35,7 @@ nginx_config() {
         cp ./nginx_conf/${nginx_config} /etc/nginx
         cp ./nginx_conf/${my_com_config} /etc/nginx/sites-available
         cp -r ./ihor.com/ /var/www/html
+        ln -s /etc/nginx/sites-available/ihor.com.conf /etc/nginx/sites-enabled/ihor.com.conf
 
         # SSL keys copy
         cp ./nginx_conf/*.key /etc/ssl/private/
@@ -108,15 +109,15 @@ php_install() {
 wordpress_install() {
     wget https://wordpress.org/latest.tar.gz
     tar -xf *.tar.gz
-    mv -r ./wordpress/* /var/www/html/ihor.com
+    mv ./wordpress/* /var/www/html/ihor.com
 }
 
-install_nginx
-nginx_config
-firewall_config
-mysql_install
-mysql_cnf_replace
-mysql_secure_ins
-php_install
+# install_nginx
+# nginx_config
+# firewall_config
+# mysql_install
+# mysql_cnf_replace
+# mysql_secure_ins
+# php_install
 wordpress_install
 
