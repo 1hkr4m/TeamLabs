@@ -91,20 +91,21 @@ mysql_secure_ins() {
 # php install
 php_install() {
     apt-get -y install php-fpm php-mysql >> $LOG_FILE
+    apt-get -y install php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-ldap php-zip php-curl >> $LOG_FILE
 }
 
 wordpress_install() {
-    wget https://wordpress.org/latest.tar.gz
-    tar -xf latest.tar.gz
-    mv ./wordpress /var/www/html
+  #  wget https://wordpress.org/latest.tar.gz
+     tar -xf *.tar.gz
+    mv ./wordpress /var/www/html/ihor.com
 }
 
-#install_nginx
-nginx_config
-#firewall_config
-#mysql_install
-mysql_cnf_replace
-#mysql_secure_ins
-#php_install
-#wordpress_install
+# install_nginx
+# nginx_config
+# firewall_config
+# mysql_install
+# mysql_cnf_replace
+# mysql_secure_ins
+# php_install
+wordpress_install
 
