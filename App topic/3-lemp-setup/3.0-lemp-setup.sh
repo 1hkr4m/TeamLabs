@@ -93,7 +93,7 @@ mysql_secure_ins() {
 
 # php install
 php_install() {
-    apt-get -y install php-fpm php-mysql php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-ldap php-zip php-curl >> $LOG_FILE
+    apt-get -y install php-fpm php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-ldap php-zip php-curl >> $LOG_FILE
         if [[ "$?" -eq 0 ]]
     then
         tput setaf 2; echo "Installation of php successfully complete!" 
@@ -106,7 +106,7 @@ php_install() {
 }
 
 wordpress_install() {
-  #  wget https://wordpress.org/latest.tar.gz
+    wget https://wordpress.org/latest.tar.gz
     tar -xf *.tar.gz
     mv -r ./wordpress/* /var/www/html/ihor.com
 }
