@@ -63,10 +63,13 @@ mysql_install() {
     apt-get install -y mysql-server >> $LOG_FILE
     if [[ "${?}" -ne 0 ]]
     then
-        echo "ERROR to install my sql! Check repos config!"
+        tput setaf 1; echo "ERROR to install mysql! Check repos config!"
+        tput sgr0
         exit 1
     else
-        mysql --version >> $LOG_FILE
+        tput setaf 2; echo "Installation of mysql-server successfully complete!" 
+        mysql --version
+        tput sgr0
     fi
 }
 
@@ -90,22 +93,30 @@ mysql_secure_ins() {
 
 # php install
 php_install() {
-    apt-get -y install php-fpm php-mysql >> $LOG_FILE
-    apt-get -y install php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-ldap php-zip php-curl >> $LOG_FILE
+    apt-get -y install php-fpm php-mysql php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-ldap php-zip php-curl >> $LOG_FILE
+        if [[ "$?" -eq 0 ]]
+    then
+        tput setaf 2; echo "Installation of php successfully complete!" 
+        nginx -v
+        tput sgr0
+    else
+        tput setaf 1; echo "Installation of php failed!"; tput sgr0
+        exit 1
+    fi
 }
 
 wordpress_install() {
   #  wget https://wordpress.org/latest.tar.gz
-     tar -xf *.tar.gz
-    mv ./wordpress /var/www/html/ihor.com
+    tar -xf *.tar.gz
+    mv -r ./wordpress/* /var/www/html/ihor.com
 }
 
-# install_nginx
-# nginx_config
-# firewall_config
-# mysql_install
-# mysql_cnf_replace
-# mysql_secure_ins
-# php_install
+install_nginx
+nginx_config
+firewall_config
+mysql_install
+mysql_cnf_replace
+mysql_secure_ins
+php_install
 wordpress_install
 
