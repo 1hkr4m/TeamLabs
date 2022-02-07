@@ -13,7 +13,7 @@ fi
 
 # Install LEMP
 install_lemp() {
-    apt-get update
+    apt-get update >> $LOG_FILE
     apt install -y nginx  php-fpm  mariadb-server mariadb-client php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-ldap php-zip php-curl >> $LOG_FILE
     if [[ "$?" -eq 0 ]]
     then
