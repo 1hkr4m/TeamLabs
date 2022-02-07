@@ -1,10 +1,18 @@
 Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu/bionic64"
     config.vm.provider "virtualbox"
-
-    config.vm.define "lemp" do |web|
-        lemp.vm.provision "file", source: "3.0-lemp-setup.sh",
-            destination: "/home/vagrant/tomcat.sh"
+    
+    config.vm.define "wp" do |wp|
+      wp.vm.provision "file", source: "3.0-lemp-setup.sh",
+        destination: "/home/vagrant/lemp/lemp.sh"
+      wp.vm.provision "file", source: "mysql_conf",
+        destination: "/home/vagrant/lemp/mysql_conf"
+      wp.vm.provision "file", source: "nginx_conf",
+        destination: "/home/vagrant/lemp/nginx_conf"
+      wp.vm.provision "file", source: "php_conf",
+        destination: "/home/vagrant/lemp/php_conf"
+      wp.vm.provision "file", source: "wp_conf",
+        destination: "/home/vagrant/lemp/wp_conf"
+      wp.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
     end
-
-end
+  end

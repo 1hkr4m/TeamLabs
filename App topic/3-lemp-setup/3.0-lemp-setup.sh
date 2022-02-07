@@ -11,40 +11,54 @@ else
     echo "$(date) - run lemp install script!"
 fi
 
-# Install nginx
-install_nginx() {
+# Install LEMP
+install_lemp() {
     apt-get update
-    apt-get -y install nginx >> $LOG_FILE
+    apt install -y nginx  php-fpm  mariadb-server mariadb-client php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-ldap php-zip php-curl
+ >> $LOG_FILE
     if [[ "$?" -eq 0 ]]
     then
-        tput setaf 2; echo "Installation of nginx successfully complete!" 
+        tput setaf 2; echo "Installation of LEMP successfully complete!" 
         nginx -v
         tput sgr0
     else
-        tput setaf 1; echo "Installation failed!"; tput sgr0
+        tput setaf 1; echo "LEMP installation failed!"; tput sgr0
         exit 1
     fi
 }
 
-# copy my config to nginx folder
-nginx_config() {
-    nginx_config="nginx.conf"
-    my_com_config="ihor.com.conf"
+wordpress_install() {
+    #wget https://wordpress.org/latest.tar.gz
+    tar -xf latest.tar.gz -C /var/www/html/
+    
+}
 
-    if [[ -f "./nginx_conf/${nginx_config}" ]] || [[ -f "./nginx_conf/${my_com_config}" ]]; then
-        cp ./nginx_conf/${nginx_config} /etc/nginx
-        cp ./nginx_conf/${my_com_config} /etc/nginx/sites-available
-        cp -r ./ihor.com/ /var/www/html
-        ln -s /etc/nginx/sites-available/ihor.com.conf /etc/nginx/sites-enabled/ihor.com.conf
+all_configs() {
 
+        # Configs for nginx
+        cp ./nginx_conf/nginx.conf /etc/nginx
+        cp ./nginx_conf/wp.conf /etc/nginx/sites-available/
+        ln -s /etc/nginx/sites-available/wp.conf /etc/nginx/sites-enabled/
+        rm /etc/nginx/sites-available/default
+        rm /etc/nginx/sites-enabled/default
+
+        # Confing for MySql 
+        cp ./mysql_conf/mysql.cnf /etc/mysql
+        mysql --user="root" --password="vagrant" --database="mysql" --execute="CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';"
+        mysql --user="root" --password="vagrant" --database="mysql" --execute="GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;"
+        mysql --user="root" --password="vagrant" --database="mysql" --execute="CREATE DATABASE wp_database;"
+
+        # Configs for PHP
+        cp ./php_conf/php.ini /etc/php/7.2/fpm/
+
+        # Configs for Wordpress
+        cp ./wp_conf/wp-config.php /var/www/html/wordpress
+        chown www-data:www-data -R /var/www/html/wordpress/
+        
         # SSL keys copy
         cp ./nginx_conf/*.key /etc/ssl/private/
-        
-        echo "You config successfully copy to nginx folder."
-        nginx -t
-    else
-        echo "ERROR to exports your config files. Please, check it!"
-    fi
+
+        systemctl reload nginx.service
 }
 
 # Add rulles to firewall, if it neeed to
@@ -59,65 +73,13 @@ firewall_config() {
     fi
 }
 
-# Install MySql
-mysql_install() {
-    apt-get install -y mysql-server >> $LOG_FILE
-    if [[ "${?}" -ne 0 ]]
-    then
-        tput setaf 1; echo "ERROR to install mysql! Check repos config!"
-        tput sgr0
-        exit 1
-    else
-        tput setaf 2; echo "Installation of mysql-server successfully complete!" 
-        mysql --version
-        tput sgr0
-    fi
-}
-
-# copy my my.cnf files
-mysql_cnf_replace() {
-    my_cnf="mysql.cnf"
-
-    if [[ -f "./mysql_conf/${my_cnf}" ]]
-    then
-        echo "mysql.cnf copied successfully!!!"
-        cp ./mysql_conf/${my_cnf} /etc/mysql
-    else
-        echo "ERROR to copy confgiguration file. Check it they exist and all cnf files must be in the same dir with script file."
-    fi
-}
-
-# mysql secure install
 mysql_secure_ins() {
     mysql_secure_installation
 }
 
-# php install
-php_install() {
-    apt-get -y install php-fpm php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-ldap php-zip php-curl >> $LOG_FILE
-        if [[ "$?" -eq 0 ]]
-    then
-        tput setaf 2; echo "Installation of php successfully complete!" 
-        nginx -v
-        tput sgr0
-    else
-        tput setaf 1; echo "Installation of php failed!"; tput sgr0
-        exit 1
-    fi
-}
 
-wordpress_install() {
-    wget https://wordpress.org/latest.tar.gz
-    tar -xf *.tar.gz
-    mv ./wordpress/* /var/www/html/ihor.com
-}
-
-# install_nginx
-# nginx_config
-# firewall_config
-# mysql_install
-# mysql_cnf_replace
-# mysql_secure_ins
-# php_install
+install_lemp
 wordpress_install
-
+all_configs
+firewall_config
+mysql_secure_installation
