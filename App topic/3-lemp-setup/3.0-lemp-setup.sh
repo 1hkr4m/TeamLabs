@@ -29,7 +29,7 @@ install_lemp() {
 
 wordpress_install() {
     #wget https://wordpress.org/latest.tar.gz
-    tar -xf latest.tar.gz -C /var/www/html/
+    tar -xf ./wp_conf/latest.tar.gz -C /var/www/html/
     
 }
 
@@ -82,4 +82,4 @@ install_lemp
 wordpress_install
 all_configs
 firewall_config
-mysql_secure_installation
+#mysql_secure_installation
