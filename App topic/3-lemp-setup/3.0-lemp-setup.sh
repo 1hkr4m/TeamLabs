@@ -13,9 +13,8 @@ fi
 
 # Install LEMP
 install_lemp() {
-    apt-get update
-    apt install -y nginx  php-fpm  mariadb-server mariadb-client php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-ldap php-zip php-curl
- >> $LOG_FILE
+    apt-get update >> $LOG_FILE
+    apt install -y nginx  php-fpm  mariadb-server mariadb-client php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli php-ldap php-zip php-curl >> $LOG_FILE
     if [[ "$?" -eq 0 ]]
     then
         tput setaf 2; echo "Installation of LEMP successfully complete!" 
@@ -57,6 +56,7 @@ all_configs() {
         
         # SSL keys copy
         cp ./nginx_conf/*.key /etc/ssl/private/
+        cp ./nginx_conf/*.crt /etc/ssl/private/
 
         systemctl reload nginx.service
 }
