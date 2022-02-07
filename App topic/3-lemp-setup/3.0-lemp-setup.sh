@@ -43,9 +43,9 @@ all_configs() {
 
         # Confing for MySql 
         cp ./mysql_conf/mysql.cnf /etc/mysql
-        mysql --user="root" --password="vagrant" --database="mysql" --execute="CREATE USER 'admin'@'localhost' IDENTIFIED BY '${1}';"
-        mysql --user="root" --password="vagrant" --database="mysql" --execute="GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;"
-        mysql --user="root" --password="vagrant" --database="mysql" --execute="CREATE DATABASE wp_database;"
+        mysql --user="root" --password="${1}" --database="mysql" --execute="CREATE USER 'admin'@'localhost' IDENTIFIED BY '${2}';"
+        mysql --user="root" --password="${1}" --database="mysql" --execute="GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;"
+        mysql --user="root" --password="${1}" --database="mysql" --execute="CREATE DATABASE wp_database;"
 
         # Configs for PHP
         cp ./php_conf/php.ini /etc/php/7.2/fpm/
@@ -80,20 +80,20 @@ mysql_secure_ins() {
 help_f() {
 tput setaf 3
 cat <<eof
-You must enter a password as a parameter for you database admin account!
+You must enter a user password and db password as a parameter for you database admin account!
 
 eof
 tput sgr0
 exit 1
 }
 
-if [[ "${#}" -lt 1 ]]
+if [[ "${#}" -lt 2 ]]
 then
     help_f
 else
 install_lemp
 wordpress_install
-all_configs ${1}
+all_configs ${1} ${2}
 firewall_config
 #mysql_secure_installation
 fi
