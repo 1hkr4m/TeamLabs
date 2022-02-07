@@ -43,7 +43,7 @@ all_configs() {
 
         # Confing for MySql 
         cp ./mysql_conf/mysql.cnf /etc/mysql
-        mysql --user="root" --password="vagrant" --database="mysql" --execute="CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';"
+        mysql --user="root" --password="vagrant" --database="mysql" --execute="CREATE USER 'admin'@'localhost' IDENTIFIED BY '${1}';"
         mysql --user="root" --password="vagrant" --database="mysql" --execute="GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;"
         mysql --user="root" --password="vagrant" --database="mysql" --execute="CREATE DATABASE wp_database;"
 
@@ -77,9 +77,24 @@ mysql_secure_ins() {
     mysql_secure_installation
 }
 
+help_f() {
+tput setaf 3
+cat <<eof
+You must enter a password as a parameter for you database admin account!
 
+eof
+tput sgr0
+exit 1
+}
+
+if [[ "${#}" -lt 1 ]]
+then
+    help_f
+else
 install_lemp
 wordpress_install
-all_configs
+all_configs ${1}
 firewall_config
 #mysql_secure_installation
+fi
+
