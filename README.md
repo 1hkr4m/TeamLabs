@@ -18,7 +18,6 @@
 -  [Script for setup mysql + php + nginx + phpmyadmin (without apache)](https://github.com/1hkr4m/team-labs/tree/main/App%20topic/3-lemp-setup)
 -  [script for setup tomcat](https://github.com/1hkr4m/team-labs/tree/main/App%20topic/4-tomcat-setup)
 -  [scripts for backup](https://github.com/1hkr4m/team-labs/tree/main/App%20topic/5-backup)
--  [Files from labs on aCloudGuru](https://github.com/1hkr4m/team-labs/tree/main/App%20topic/CloudGuruLab)
 
 # Azure topic
 -  Wordpress Setup (App service + mysql flexible server)
