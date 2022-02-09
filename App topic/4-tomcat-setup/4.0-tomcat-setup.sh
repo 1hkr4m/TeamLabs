@@ -14,9 +14,9 @@ fi
 sudo apt update 
 sudo apt install -y default-jdk >> $LOG_FILE
 
-tar -xvf ./tomcat.tar.gz -C $TC_HOME >> $LOG_FILE
+tar -xvf ./apache-tomcat-9.0.58 -C $TC_HOME >> $LOG_FILE
 
-mv $TC_HOME/apache-tomcat-10.0.16 $TC_HOME/tomcat9 
+mv $TC_HOME/apache-tomcat-9.0.58 $TC_HOME/tomcat9 
 
 useradd -r tomcat
 

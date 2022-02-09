@@ -5,8 +5,8 @@ Vagrant.configure("2") do |config|
     config.vm.define "tomcat" do |tomcat|
         tomcat.vm.provision "file", source: "4.0-tomcat-setup.sh",
             destination: "/home/vagrant/tomcat/tomcat.sh"
-        tomcat.vm.provision "file", source: "apache-tomcat-10.0.16.tar.gz",
-            destination: "/home/vagrant/tomcat/tomcat.tar.gz"
+        tomcat.vm.provision "file", source: "apache-tomcat-9.0.58.tar.gz",
+            destination: "/home/vagrant/tomcat/apache-tomcat-9.0.58.tar.gz"
         tomcat.vm.provision "file", source: "server.xml",
             destination: "/home/vagrant/tomcat/server.xml"
         tomcat.vm.provision "file", source: "tomcat-users.xml",
