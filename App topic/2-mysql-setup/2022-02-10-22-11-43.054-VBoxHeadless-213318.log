@@ -1,0 +1,12 @@
+Log created: 2022-02-10T22:11:43.547670000Z
+Process ID:  213318 (0x34146)
+Parent PID:  1729 (0x6c1)
+Executable:  /usr/lib/virtualbox/VBoxHeadless
+Arg[0]: /usr/lib/virtualbox/VBoxHeadless
+Arg[1]: --comment
+Arg[2]: 2-mysql-setup_db_1643717157302_1649
+Arg[3]: --startvm
+Arg[4]: 5a3f45e2-cce8-45d1-8c54-d8456673ff19
+Arg[5]: --vrde
+Arg[6]: config
+AddRef: illegal refcnt=3221225469 state=2
