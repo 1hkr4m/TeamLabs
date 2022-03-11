@@ -1,0 +1,29 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "ubuntu/bionic64"
+
+    $script_ansible = <<-'SCRIPT'
+    sudo apt update
+    SCRIPT
+
+    config.vm.define "ansible" do |ansible|
+        ansible.vm.network "private_network", ip: "192.168.200.10"
+        ansible.vm.provision "shell", inline: $script_ansible
+    end
+
+    $script_jenkins = <<-'SCRIPT'
+    sudo apt update
+    sudo apt install -y openjdk-11-jre
+    SCRIPT
+
+    config.vm.define "jenkins1" do |jenkins1|
+        jenkins1.vm.network "private_network", ip: "i92.168.200.11"
+        jenkins1.vm.network "forwarded_port", guest: 8080, host: 8080
+        jenkins1.vm.provision "shell", inline: $script_jenkins
+    end
+
+    config.vm.define "jenkins2" do |jenkins2|
+        jenkins2.vm.network "private_network", ip: "192.168.200.12"
+        jenkins2.vm.network "forwarded_port", guest: 8080, host: 8081
+        jenkins2.vm.provision "shell", inline: $script_jenkins
+    end
+end
