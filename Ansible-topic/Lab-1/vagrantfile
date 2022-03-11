@@ -3,6 +3,7 @@ Vagrant.configure("2") do |config|
 
     $script_ansible = <<-'SCRIPT'
     sudo apt update
+    ./install-ansible.sh
     SCRIPT
 
     config.vm.define "ansible" do |ansible|
