@@ -1,0 +1,20 @@
+---
+- name: Install Apache and download my website
+  hosts: all
+  become: yes
+
+  vars: 
+    source_file: ./MyWebSite/*
+    destin_file: /var/www/html
+
+  tasks:
+  - name: Install Apache
+    yum: name=httpd state=latest
+
+  - name: Copy my website
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555 
+
+  - name: Start Apache service and enable on every boot
+    service: name=httpd state=started enabled=yes
+
+  

@@ -1,16 +1,12 @@
 
 [STAGE]
-linux1 ansible_host=
-linux2 ansible_host=
+st_linux1 ansible_host=ec2-35-174-168-110.compute-1.amazonaws.com
+st_linux2 ansible_host=ec2-52-5-96-158.compute-1.amazonaws.com
 
 [PROD]
-linux1 ansible_host=
-linux2 ansible_host=
+pr_linux1 ansible_host=ec2-44-202-164-232.compute-1.amazonaws.com
+pr_linux2 ansible_host=ec2-3-82-208-239.compute-1.amazonaws.com
 
 [ALL:children]
 STAGE
 PROD
-
-[ALL:vars]
-ansible_user=ec2-user
-ansible_ssh_private_key_file=/home/ec2-user/linux1.pem
