@@ -4,9 +4,8 @@
   become: yes
 
   vars: 
-    source_file: ./mysite/index.html
-    source_adds: ./mysite/images
-    destin_file: /var/www/html
+    source_file: ./html
+    destin_file: /var/www/
 
   tasks:
   - name: Install Apache
@@ -14,7 +13,6 @@
 
   - name: Copy my website
     copy: src={{ source_file }} dest={{ destin_file }} mode=0555 
-    copy: src={{ source_adds }} dest={{ destin_file }} mode=0555
     notify: Restart Apache
 
   - name: Start Apache service and enable on every boot
