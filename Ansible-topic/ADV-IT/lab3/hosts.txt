@@ -1,0 +1,15 @@
+
+[STAGE]
+st1 ansible_host=ec2-44-201-246-224.compute-1.amazonaws.com
+st2 ansible_host=ec2-3-86-39-199.compute-1.amazonaws.com
+
+[STAGE_UBUNTU]
+st3 ansible_host=ec2-3-84-27-204.compute-1.amazonaws.com
+
+[PROD]
+pr1 ansible_host=ec2-18-207-188-204.compute-1.amazonaws.com
+pr2 ansible_host=ec2-18-207-188-204.compute-1.amazonaws.com
+
+[ALL:children]
+STAGE
+PROD
