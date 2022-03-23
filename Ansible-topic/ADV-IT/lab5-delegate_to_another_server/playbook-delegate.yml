@@ -1,0 +1,45 @@
+---
+- name: My super Playbook
+  hosts: all
+  become: yes
+
+  vars: 
+    mytext: "Hi Ihor Kram"
+  
+  tasks:
+  - name: Ping all
+    ping:
+
+  - name: Unregister server from load balancer
+    shell: echo This server {{ inventory_hostname }} was deregistered from Load Balancer, node name is {{ ansible_nodename }} >> /home/log.txt
+    delegate_to: 127.0.0.1
+
+  - name: Create file 1
+    copy: 
+      dest: /home/file1.txt
+      content:
+        This is file
+        On english Hello world
+        And {[ mytext ]}
+    delegate_to: st3
+
+  - name: Create file 2
+    copy: 
+      dest: /home/file1.txt
+      content:
+        This is file
+        On english Hello world
+        And {[ mytext ]}
+  
+  - name: Reboot my servers
+    shell: sleep 3 && reboot now
+    async: 1
+    poll: 0
+
+  - name: Wait till my servers will come up
+    wait_for: 
+        host: "{{ inventory_hostname }}"
+        state: started
+        delay: 5
+        timeout: 40
+    delegate_to: 127.0.0.1
