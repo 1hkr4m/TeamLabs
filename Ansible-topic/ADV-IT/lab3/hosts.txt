@@ -1,6 +1,0 @@
-[STAGE_UBUNTU]
-st3 ansible_host=ec2-54-226-30-165.compute-1.amazonaws.com
-
-[PROD]
-pr1 ansible_host=ec2-54-167-82-249.compute-1.amazonaws.com
-pr2 ansible_host=ec2-54-242-170-3.compute-1.amazonaws.com
