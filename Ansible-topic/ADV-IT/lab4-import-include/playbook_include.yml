@@ -1,0 +1,18 @@
+---
+- name: Example using include
+  hosts: all
+  become: yes
+
+  vars: 
+    mytext: "Privet Ihor Kram"
+
+  tasks:
+  - name: ping
+    ping:
+
+  - name: Create folders
+    include: create-folders.yml
+
+  - name: Create files
+    include: create-files.yml
+    
