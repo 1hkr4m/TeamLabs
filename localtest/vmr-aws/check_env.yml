@@ -1,0 +1,12 @@
+---
+# Check ssh port for all hosts
+- hosts: all
+  tasks:
+    - debug:
+        msg:
+          - "Hostname: {{ ansible_hostname }}"
+          - "OS: {{ ansible_distribution }} {{ ansible_distribution_release }} {{ ansible_distribution_version }}"
+          - "CPU: {{ ansible_processor_count }} core(s)"
+          - "RAM: {{ ansible_memtotal_mb }} MB"
+#          - "SELinux: {{ ansible_selinux.status }}, {{ ansible_selinux.mode | default('n/a') }}"
+#          - "Mounts: {{ ansible_mounts | print_mounts }}"

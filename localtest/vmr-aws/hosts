@@ -1,0 +1,13 @@
+[env1]
+vmr1-web1 ansible_host=ec2-54-167-59-134.compute-1.amazonaws.com
+vmr1-app1 ansible_host=ec2-52-90-59-116.compute-1.amazonaws.com
+vmr1-db1 ansible_host=ec2-18-215-153-10.compute-1.amazonaws.com
+
+[env2]
+vmr2-web1 ansible_host=ec2-54-82-105-36.compute-1.amazonaws.com
+vmr2-app1 ansible_host=ec2-52-91-142-182.compute-1.amazonaws.com
+vmr2-db1 ansible_host=ec2-54-174-199-95.compute-1.amazonaws.com
+
+[cluster:children]
+env1
+env2
