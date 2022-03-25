@@ -1,0 +1,9 @@
+---
+- name: fosjdfosjdf
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: copy
+    copy:
+ 
