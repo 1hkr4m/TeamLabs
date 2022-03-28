@@ -1,0 +1,24 @@
+---
+# tasks file for install_jenkins
+- name: Install Java
+  apt:
+    name: openjdk-11-jre 
+    state: latest
+    update_cache: yes
+
+- name: Get key for Jenkins repo
+  shell: curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+- name: Add Jenkins repo
+  shell: echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+- name: Install Jenkins
+  apt:
+    name: jenkins
+    state: latest
+    update_cache: yes
+
+- name: Add jenkins user to root group
+  shell: sudo usermod -a -G root jenkins && sudo systemctl restart jenkins
+
+    
