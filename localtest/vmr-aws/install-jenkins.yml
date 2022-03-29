@@ -1,6 +1,6 @@
 ---
 - name: Install Jenkins
-  hosts: all
+  hosts: vmr1-db1
   become: yes
 
   roles: 
