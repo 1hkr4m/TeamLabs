@@ -20,5 +20,3 @@
 
 - name: Add jenkins user to root group
   shell: sudo usermod -a -G root jenkins && sudo systemctl restart jenkins
-
-    
