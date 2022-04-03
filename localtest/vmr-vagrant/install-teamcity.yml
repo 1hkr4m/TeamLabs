@@ -1,0 +1,7 @@
+---
+- name: Install TeamCity
+  hosts: all
+  become: yes
+
+  roles: 
+    - { role: teamcity, when: ansible_system == 'Linux' }

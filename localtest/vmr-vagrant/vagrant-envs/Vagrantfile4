@@ -1,0 +1,62 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.require_version ">= 1.8.0"
+
+API_VERSION = 2
+
+ENV["VAGRANT_SERVER_URL"] = "https://repo.vaultmr-dev.com/vagrant"
+
+# Virtual environment init
+Vagrant.configure(API_VERSION) do |config|
+
+  # Set ISO of CentOS7
+  config.vm.box = "vaultmr/centos"
+  config.vm.box_download_insecure = true
+
+  # Do not update guest tools automatically
+  config.vbguest.auto_update = false
+  # Do not download the iso with guest addons
+  config.vbguest.no_remote = true
+
+  config.vm.hostname = "mgmt"
+  config.vm.provider "virtualbox" do |v|
+    v.name = "mgmt"
+    v.cpus = 2
+    v.memory = 512
+    v.gui = false
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  end
+
+  config.vm.network :private_network, ip: "192.168.56.5", auto_config: true
+
+  private_key = File.read("ansible_rsa")
+  config.vm.provision :shell,
+    inline: "touch ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa && echo \"#{private_key}\" > ~/.ssh/id_rsa",
+    privileged: false
+
+  # Put public ssh keys
+  public_key = File.readlines("ansible_rsa.pub").first.strip
+  config.vm.provision :shell,
+    inline: "grep -q \"#{public_key}\" ~/.ssh/authorized_keys || echo -e \"\n#{public_key}\" >> ~/.ssh/authorized_keys",
+    privileged: false
+
+  # Launch bootstrap scripts
+  config.vm.provision :shell, inline: "yum -y install epel-release"
+  config.vm.provision :shell, inline: "yum -y install mlocate mc nano openssl ansible python-lxml vim rsync"
+
+  # Add hosts
+  etc_hosts = File.readlines("inventory/selftest/etc.hosts")
+  config.vm.provision :shell,
+    inline: "grep -q \"192.168.56\" /etc/hosts || echo \"#{etc_hosts}\" | sed 's/n, /\\n/g' | sed 's/n]//'| tr -d '[' >> /etc/hosts",
+    privileged: true
+
+  # Disable default share
+  config.vm.synced_folder ".", "/vagrant",
+    disabled: true
+
+  config.vm.synced_folder "../..", "/vaultmr",
+    mount_options: ["rw", "dmask=022", "fmask=133"],
+    create: true
+
+end

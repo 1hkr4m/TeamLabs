@@ -1,0 +1,8 @@
+---
+- name: ping all
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: cmon ping
+    ping:
