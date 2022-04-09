@@ -1,0 +1,8 @@
+---
+# Check ssh port for all hosts
+- hosts: cluster
+  tasks:
+    - debug:
+        msg:
+          - "Hostname: {{ ansible_hostname }}"
+          - "IP addresses: {{ ansible_all_ipv4_addresses | join(',') }}"

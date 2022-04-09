@@ -1,12 +1,12 @@
 [vmr1]
-vmr1-web1  ansible_host=172.33.33.10
-vmr1-app1  ansible_host=172.33.33.11
-vmr1-db1  ansible_host=172.33.33.12
+centos-1  ansible_host=192.168.0.121
+centos-2  ansible_host=192.168.0.122
+centos-3  ansible_host=192.168.0.123
 
 [vmr2]
-vmr2-web1  ansible_host=172.44.44.10
-vmr2-app1  ansible_host=172.44.44.11
-vmr2-db1  ansible_host=172.44.44.12
+ubuntu-1  ansible_host=192.168.0.131
+ubuntu-2  ansible_host=192.168.0.132
+ubuntu-3  ansible_host=192.168.0.133
 
 [cluster:children]
 vmr1
