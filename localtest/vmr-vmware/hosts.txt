@@ -1,12 +1,12 @@
 [vmr1]
-centos-1  ansible_host=192.168.0.121
-centos-2  ansible_host=192.168.0.122
-centos-3  ansible_host=192.168.0.123
+centos-1  ansible_host=192.33.33.121
+centos-2  ansible_host=192.33.33.122
+centos-3  ansible_host=192.33.33.123
 
 [vmr2]
-ubuntu-1  ansible_host=192.168.0.131
-ubuntu-2  ansible_host=192.168.0.132
-ubuntu-3  ansible_host=192.168.0.133
+ubuntu-1  ansible_host=192.33.33.131
+ubuntu-2  ansible_host=192.33.33.132
+ubuntu-3  ansible_host=192.33.33.133
 
 [cluster:children]
 vmr1
