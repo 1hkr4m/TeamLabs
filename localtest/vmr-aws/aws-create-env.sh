@@ -47,4 +47,4 @@ done
 
 aws-create-keypair
 aws-create-sc
-#aws-create-instances
+aws-create-instances
