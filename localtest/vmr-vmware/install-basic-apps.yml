@@ -12,7 +12,10 @@
           
         - name: Debian/Ubuntu - Upgrade all packages on servers
           apt: upgrade=dist force_apt_get=yes
-
+        
+        - name: Debian/Ubuntu - Install soft
+          apt:  
+          
       when: ansible_os_family == "Debian"
 
     - block: #=====Block for RedHat===
@@ -21,4 +24,7 @@
 
         - name: RedHat/CentOS - upgrade repos
           yum: name='*' state=latest  
+
+        - name: RedHat/CentOS - Install soft
+          yum: 
       when: ansible_os_family == "RedHat"
