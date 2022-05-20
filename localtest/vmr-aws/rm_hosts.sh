@@ -1,2 +1,2 @@
-sudo rm /home/MyKeyPair.pem
-sudo rm /home/aws-dns.txt
+sudo rm /tmp/MyKeyPair.pem
+sudo rm /tmp/aws-dns.txt

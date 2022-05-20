@@ -1,7 +1,7 @@
 #!/bin/bash
 #aws ec2 describe-instances --region us-east-1 --query 'Reservations[].Instances[].PublicDnsName' --output text > aws-dns.txt
 
-FILE_PATH=/home/aws-dns.txt
+FILE_PATH=/tmp/aws-dns.txt
 
 for j in 1 2
 do
