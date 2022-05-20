@@ -1,8 +1,8 @@
 #!/bin/bash
 
 aws-create-keypair() {
-aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text > MyKeyPair.pem
-chmod 400 MyKeyPair.pem
+aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text > /home/MyKeyPair.pem
+chmod 400 /home/MyKeyPair.pem
 }
 
 aws-create-sc() {

@@ -1,2 +1,2 @@
-sudo rm MyKeyPair.pem
-sudo rm aws-dns.txt
+sudo rm /home/MyKeyPair.pem
+sudo rm /home/aws-dns.txt
