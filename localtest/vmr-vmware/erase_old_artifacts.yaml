@@ -1,0 +1,14 @@
+---
+- name: Transfer and execute a script.
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Transfer the script
+      copy: src=erase_old_artifacts.sh dest=/tmp mode=0777
+
+    - name: Execute the script
+      script: /tmp/erase_old_artifactst.sh
+
+    - name: Remove the script file
+      file: path=/tmp/erase_old_artifactst.sh state=absent
